@@ -1,0 +1,10 @@
+# local tooling settings — not part of the site
+.claude/
+
+# duplicate of Soorya-Prakash-S-Resume.pdf; nothing links to it
+Soorya Resume.pdf
+
+# OS clutter
+.DS_Store
+Thumbs.db
+desktop.ini
