@@ -38,7 +38,6 @@ const SITE = {
             "a tool is really doing.",
 
   email:    "sooryaprakash71@gmail.com",
-  phone:    "+91 88830 86500",
   linkedin: "https://www.linkedin.com/in/soorya-prakash-s-486733128/",
   location: "Trichy, Tamil Nadu, India",
 
