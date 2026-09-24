@@ -916,7 +916,7 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(.75rem, 3vw, 2.5rem);
+  padding: clamp(.75rem, 2vw, 1.5rem);
 }
 
 .modal-backdrop {
@@ -945,6 +945,10 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round
   position: relative;
   width: 100%;
   min-height: 0;
+  /* a column so the scroll area can flex to whatever height is left, rather
+     than being capped at a guessed fraction of the viewport */
+  display: flex;
+  flex-direction: column;
   background: var(--bg);
   border: 1px solid var(--line-strong);
   border-radius: var(--radius);
@@ -956,9 +960,12 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round
 @keyframes fade { from { opacity: 0; } }
 @keyframes pop  { from { opacity: 0; transform: translateY(22px) scale(.98); } }
 
+/* Takes the height the frame has left over after the close-button row, so a
+   tall window gets a tall panel. A fixed vh cap here wasted over 100px of a
+   900px-high window while the content was still scrolling. */
 .modal-scroll {
-  /* leaves room for the close button row that now sits above the panel */
-  max-height: min(80vh, 860px);
+  flex: 1 1 auto;
+  min-height: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
 }
