@@ -978,6 +978,152 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round
 /* no media yet: a slim banner reads better than an empty widescreen block */
 .modal-media.is-empty { aspect-ratio: auto; height: 116px; }
 
+
+/* ---- gallery: screenshots and clips in one stage with a thumb strip ---- */
+
+.gal-stage { overflow: hidden; }
+
+.gal-slide { position: absolute; inset: 0; }
+.gal-slide[hidden] { display: none !important; }
+.gal-slide img,
+.gal-slide video,
+.gal-slide iframe { width: 100%; height: 100%; object-fit: cover; border: 0; display: block; }
+
+/* YouTube still + play button, swapped for the real iframe on click */
+.yt-facade {
+  position: absolute;
+  inset: 0;
+  display: block;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+  background: #000;
+}
+.yt-facade img { opacity: .82; transition: opacity .25s ease, transform .5s ease; }
+.yt-facade:hover img { opacity: 1; transform: scale(1.03); }
+
+/* shown in place of the player when the page is opened from disk */
+.yt-blocked {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .7rem;
+  text-align: center;
+  padding: 1.6rem;
+  background: var(--surface-2);
+}
+.yt-blocked p { margin: 0; max-width: 46ch; font-size: .9rem; color: var(--ink-soft); line-height: 1.55; }
+.yt-blocked p strong { color: var(--ink); }
+.yt-blocked code {
+  font-family: var(--font-mono);
+  font-size: .82em;
+  padding: .1rem .3rem;
+  border-radius: 4px;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.yt-blocked .btn { margin-top: .2rem; }
+
+/* a vertical video (a Short) fitted into the 16:9 stage rather than cropped */
+.gal-slide.is-portrait .yt-facade img { object-fit: contain; }
+.gal-slide.is-portrait .yt-facade:hover img { transform: none; }
+.yt-play {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 66px; height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--accent) 92%, transparent);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, .45);
+  transition: transform .22s cubic-bezier(.34, 1.4, .64, 1);
+}
+.yt-facade:hover .yt-play { transform: translate(-50%, -50%) scale(1.08); }
+.yt-play svg { width: 22px; height: 22px; fill: var(--accent-ink); stroke: none; }
+
+/* stage controls */
+.gal-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 38px; height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--ink);
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  border: 1px solid var(--line-strong);
+  backdrop-filter: blur(6px);
+  transition: background-color .2s ease, border-color .2s ease, transform .2s ease;
+}
+.gal-nav:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-50%) scale(1.06); }
+.gal-nav svg { width: 17px; height: 17px; }
+.gal-prev { left: .8rem; }
+.gal-next { right: .8rem; }
+
+.gal-count {
+  position: absolute;
+  top: .8rem; right: .8rem;
+  z-index: 2;
+  font-family: var(--font-mono);
+  font-size: .66rem;
+  letter-spacing: .08em;
+  color: var(--muted);
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  padding: .24rem .6rem;
+  backdrop-filter: blur(6px);
+}
+.gal-count b { color: var(--ink); font-weight: 600; }
+
+/* thumbnail strip */
+.gal-thumbs {
+  display: flex;
+  gap: .5rem;
+  padding: .7rem .8rem;
+  overflow-x: auto;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--line);
+}
+.gal-thumb {
+  position: relative;
+  flex: none;
+  width: 74px;
+  aspect-ratio: 16 / 10;
+  padding: 0;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--surface);
+  border: 1.5px solid var(--line);
+  transition: border-color .2s ease, opacity .2s ease;
+  opacity: .72;
+}
+.gal-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.gal-thumb:hover { opacity: 1; border-color: var(--line-strong); }
+.gal-thumb.is-active { opacity: 1; border-color: var(--accent); }
+
+.gal-thumb-play span {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: color-mix(in srgb, #000 42%, transparent);
+}
+.gal-thumb-play svg { width: 17px; height: 17px; fill: #fff; stroke: none; }
+
+@media (max-width: 560px) {
+  .gal-nav { width: 32px; height: 32px; }
+  .gal-thumb { width: 60px; }
+}
+
 .modal-inner { padding: clamp(1.5rem, 4vw, 2.6rem); }
 
 .modal-eyebrow {

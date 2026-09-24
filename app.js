@@ -419,30 +419,203 @@
   const scrollMemory = {};
   let openId = null;
 
-  function modalMedia(p) {
+  /* Every screenshot and clip a project has, in one ordered list. Stills
+     first, moving pictures last, which is the order the thumbnails read in. */
+  function mediaSlides(p) {
     const m = p.media || {};
+    const slides = [];
 
-    if (m.youtube) {
-      return '<div class="modal-media"><iframe src="https://www.youtube.com/embed/' +
-             esc(m.youtube) + '" title="' + esc(p.title) +
-             ' gameplay" allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture" ' +
-             'allowfullscreen loading="lazy"></iframe></div>';
+    (m.images || []).forEach(function (src) {
+      slides.push({ kind: "image", src: src });
+    });
+    if (m.youtube) slides.push({ kind: "youtube", id: m.youtube });
+    if (m.video)   slides.push({ kind: "video", src: m.video, poster: m.poster || null });
+
+    return slides;
+  }
+
+  function slideHTML(p, s, i) {
+    const hide = i === 0 ? "" : " hidden";
+
+    if (s.kind === "image") {
+      return '<div class="gal-slide"' + hide + ' data-kind="image">' +
+               '<img src="' + esc(s.src) + '" alt="' + esc(p.title) +
+               ' screenshot" loading="lazy">' +
+             "</div>";
     }
-    if (m.video) {
-      return '<div class="modal-media"><video controls playsinline preload="metadata"' +
-             (m.poster ? ' poster="' + esc(m.poster) + '"' : "") +
-             '><source src="' + esc(m.video) + '" type="video/mp4">' +
-             "Your browser cannot play this video.</video></div>";
+
+    if (s.kind === "video") {
+      return '<div class="gal-slide"' + hide + ' data-kind="video">' +
+               "<video controls playsinline preload=\"metadata\"" +
+               (s.poster ? ' poster="' + esc(s.poster) + '"' : "") +
+               '><source src="' + esc(s.src) + '" type="video/mp4">' +
+               "Your browser cannot play this video.</video>" +
+             "</div>";
     }
-    if (m.images && m.images.length) {
-      return '<div class="modal-media"><img src="' + esc(m.images[0]) +
-             '" alt="' + esc(p.title) + ' screenshot"></div>';
-    }
-    /* nothing to show yet — use a slim banner rather than an empty 16:9 hole */
-    return '<div class="modal-media is-empty">' +
-           mediaSlot(p, p.kind === "client" ? "Media under NDA" : "Gameplay video coming soon") +
+
+    /* YouTube stays a still until it is asked for: the real iframe is heavy,
+       and building it on click means nothing is requested from YouTube for a
+       visitor who never presses play. */
+    return '<div class="gal-slide"' + hide + ' data-kind="youtube" data-yt="' +
+             esc(s.id) + '">' +
+             '<button class="yt-facade" type="button" aria-label="Play ' +
+               esc(p.title) + ' video">' +
+               /* Shorts are portrait: cover would crop the frame to a sliver,
+                  so a tall still is fitted and letterboxed instead. */
+               /* deliberately not lazy: the slide starts hidden, and a lazy
+                  image inside it is not fetched until long after the viewer
+                  has switched to it — which shows as a black stage */
+               '<img src="https://img.youtube.com/vi/' + esc(s.id) +
+                 '/maxresdefault.jpg" alt="" ' +
+                 'onload="if(this.naturalHeight&gt;this.naturalWidth)' +
+                   'this.closest(\'.gal-slide\').classList.add(\'is-portrait\');" ' +
+                 'onerror="this.onerror=null;this.src=\'https://img.youtube.com/vi/' +
+                 esc(s.id) + '/hqdefault.jpg\'">' +
+               '<span class="yt-play" aria-hidden="true">' +
+                 '<svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg>' +
+               "</span>" +
+             "</button>" +
            "</div>";
   }
+
+  function thumbHTML(p, s, i) {
+    const active = i === 0 ? " is-active" : "";
+
+    if (s.kind === "image") {
+      return '<button class="gal-thumb' + active + '" type="button" data-go="' + i +
+               '" aria-label="View screenshot ' + (i + 1) + '">' +
+               '<img src="' + esc(s.src) + '" alt="" loading="lazy">' +
+             "</button>";
+    }
+
+    const poster = s.kind === "youtube"
+      ? '<img src="https://img.youtube.com/vi/' + esc(s.id) + '/default.jpg" alt="" loading="lazy">'
+      : (s.poster ? '<img src="' + esc(s.poster) + '" alt="" loading="lazy">' : "");
+
+    return '<button class="gal-thumb gal-thumb-play' + active + '" type="button" data-go="' + i +
+             '" aria-label="View video">' + poster +
+             '<span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg></span>' +
+           "</button>";
+  }
+
+  function modalMedia(p) {
+    const slides = mediaSlides(p);
+
+    /* nothing to show yet — use a slim banner rather than an empty 16:9 hole */
+    if (!slides.length) {
+      return '<div class="modal-media is-empty">' +
+             mediaSlot(p, p.kind === "client" ? "Media under NDA" : "Gameplay video coming soon") +
+             "</div>";
+    }
+
+    const many = slides.length > 1;
+
+    return '<div class="gallery" data-index="0">' +
+             '<div class="modal-media gal-stage">' +
+               slides.map((s, i) => slideHTML(p, s, i)).join("") +
+               (many
+                 ? '<button class="gal-nav gal-prev" type="button" aria-label="Previous">' +
+                     '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>' +
+                   '<button class="gal-nav gal-next" type="button" aria-label="Next">' +
+                     '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>' +
+                   '<span class="gal-count"><b>1</b> / ' + slides.length + "</span>"
+                 : "") +
+             "</div>" +
+             (many
+               ? '<div class="gal-thumbs">' +
+                   slides.map((s, i) => thumbHTML(p, s, i)).join("") +
+                 "</div>"
+               : "") +
+           "</div>";
+  }
+
+  /* ------------------------------------------------- gallery control --- */
+
+  function galleryGo(gal, next) {
+    const slides = $$(".gal-slide", gal);
+    if (!slides.length) return;
+
+    const count = slides.length;
+    const to = (next + count) % count;
+    const from = Number(gal.dataset.index || 0);
+    if (to === from && gal.dataset.ready) return;
+
+    /* leaving a slide: stop whatever was playing on it */
+    const leaving = slides[from];
+    if (leaving) {
+      const v = $("video", leaving);
+      if (v) v.pause();
+      const frame = $("iframe", leaving);
+      if (frame) frame.remove();               // collapses YouTube back to its still
+      const facade = $(".yt-facade", leaving);
+      if (facade) facade.hidden = false;
+    }
+
+    slides.forEach((s, i) => { s.hidden = i !== to; });
+    $$(".gal-thumb", gal).forEach((t, i) => t.classList.toggle("is-active", i === to));
+
+    const counter = $(".gal-count b", gal);
+    if (counter) counter.textContent = String(to + 1);
+
+    gal.dataset.index = to;
+    gal.dataset.ready = "1";
+  }
+
+  function playYouTube(slide) {
+    if ($("iframe", slide)) return;
+
+    const id = slide.dataset.yt;
+
+    /* A page opened straight off disk has no origin, so the embed sends no
+       Referer and YouTube refuses it with "Video player configuration error
+       (Error 153)". No embed can work from file://, so say so plainly rather
+       than showing YouTube's error or silently navigating away. Served over
+       http — serve.ps1, or the deployed site — this branch never runs. */
+    if (location.protocol === "file:") {
+      const facade = $(".yt-facade", slide);
+      if (facade) facade.hidden = true;
+
+      const msg = document.createElement("div");
+      msg.className = "yt-blocked";
+      msg.innerHTML =
+        "<p><strong>Inline playback needs the page served over http://</strong></p>" +
+        "<p>Opened straight from a file, the browser sends no address for " +
+        "YouTube to check against, so it refuses to embed. Run " +
+        "<code>serve.ps1</code> and open <code>localhost:8099</code>, or use " +
+        "the published site.</p>" +
+        '<a class="btn btn-primary" target="_blank" rel="noopener noreferrer" href="' +
+          "https://www.youtube.com/watch?v=" + encodeURIComponent(id) +
+        '">Watch on YouTube</a>';
+      slide.appendChild(msg);
+      return;
+    }
+
+    const frame = document.createElement("iframe");
+    frame.src = "https://www.youtube.com/embed/" + encodeURIComponent(id) +
+                "?autoplay=1&rel=0";
+    frame.title = "Gameplay video";
+    frame.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture";
+    frame.allowFullscreen = true;
+
+    const facade = $(".yt-facade", slide);
+    if (facade) facade.hidden = true;
+    slide.appendChild(frame);
+  }
+
+  /* one delegated listener, since the gallery is rebuilt on every open */
+  modalScroll.addEventListener("click", function (e) {
+    const gal = e.target.closest ? e.target.closest(".gallery") : null;
+    if (!gal) return;
+
+    const thumb = e.target.closest(".gal-thumb");
+    if (thumb) { galleryGo(gal, Number(thumb.dataset.go)); return; }
+
+    if (e.target.closest(".gal-prev")) { galleryGo(gal, Number(gal.dataset.index || 0) - 1); return; }
+    if (e.target.closest(".gal-next")) { galleryGo(gal, Number(gal.dataset.index || 0) + 1); return; }
+
+    const facade = e.target.closest(".yt-facade");
+    if (facade) playYouTube(facade.closest(".gal-slide"));
+  });
 
   /* Optional pull quote under the blurb — an array of lines, kept as separate
      lines rather than one wrapped sentence because the break is the point. */
@@ -523,15 +696,8 @@
            "</div>";
   }
 
-  function extraShots(p) {
-    const imgs = (p.media && p.media.images) || [];
-    if (imgs.length < 2) return "";
-    return '<h4 class="modal-h">Screenshots</h4><div class="shot-grid">' +
-           imgs.slice(1).map(function (src) {
-             return '<img src="' + esc(src) + '" alt="' + esc(p.title) +
-                    ' screenshot" loading="lazy">';
-           }).join("") + "</div>";
-  }
+  /* Extra screenshots used to sit in a grid below the write-up; they are all
+     in the gallery at the top now, so there is nothing left to repeat here. */
 
   function openModal(id) {
     const p = PROJECTS.find(x => x.id === id);
@@ -585,8 +751,6 @@
                 .map(t => "<p>" + esc(t) + "</p>").join("") +
             "</div></div>"
           : "") +
-
-        extraShots(p) +
       "</div>";
 
     modal.hidden = false;
@@ -645,6 +809,19 @@
 
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") { closeModal(); closeMenu(); }
+
+    /* arrow keys walk the gallery, unless focus is in a control that wants
+       them itself (the video scrubber, say) */
+    if (!modal.hidden && (e.key === "ArrowLeft" || e.key === "ArrowRight")) {
+      const gal = $(".gallery", modalScroll);
+      if (gal && $$(".gal-slide", gal).length > 1) {
+        const tag = (document.activeElement || {}).tagName;
+        if (tag !== "VIDEO" && tag !== "IFRAME") {
+          e.preventDefault();
+          galleryGo(gal, Number(gal.dataset.index || 0) + (e.key === "ArrowRight" ? 1 : -1));
+        }
+      }
+    }
 
     /* keep tab focus inside the open dialog */
     if (e.key === "Tab" && !modal.hidden) {

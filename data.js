@@ -227,7 +227,7 @@ const PROJECTS = [
       "constraint as a way to understand the systems underneath the final " +
       "experience."
     ],
-    media: { video: null, youtube: null, poster: null, images: ["media/gravity-drift.jpg"] }
+    media: { video: null, youtube: "5iVWMPrJIjg", poster: null, images: ["media/gravity-drift.jpg"] }
   },
 
   /* ---------------------------------------------------------------- 2 --- */
@@ -392,7 +392,7 @@ const PROJECTS = [
       "emerge from the underlying rules rather than from manually scripted " +
       "solutions."
     ],
-    media: { video: null, youtube: null, poster: null, images: ["media/remnant.jpg"] }
+    media: { video: null, youtube: "krx4gI6q_yo", poster: null, images: ["media/remnant.jpg"] }
   },
 
   /* ---------------------------------------------------------------- 3 --- */
@@ -594,7 +594,7 @@ const PROJECTS = [
       "designed to support more content without requiring a new gameplay " +
       "implementation for every lesson."
     ],
-    media: { video: null, youtube: null, poster: null, images: ["media/glowworm.jpg"] }
+    media: { video: null, youtube: "837YQe2wOmk", poster: null, images: ["media/glowworm.jpg"] }
   },
 
   /* ---------------------------------------------------------------- 4 --- */
@@ -777,7 +777,7 @@ const PROJECTS = [
       "generate content from data, and use algorithms to verify the content " +
       "being shipped."
     ],
-    media: { video: null, youtube: null, poster: null, images: ["media/gridpush.jpg"] }
+    media: { video: null, youtube: "jiE0wgsTYV8", poster: null, images: ["media/gridpush.jpg"] }
   },
 
   /* ---------------------------------------------------------------- 5 --- */
@@ -914,7 +914,7 @@ const PROJECTS = [
       "The chess was the easy part.",
       "Everything between the two players wasn't."
     ],
-    media: { video: null, youtube: null, poster: null, images: ["media/chess.jpg"] }
+    media: { video: null, youtube: "WP7k9L4509w", poster: null, images: ["media/chess.jpg"] }
   },
 
   /* ---------------------------------------------------------------- 6 --- */
