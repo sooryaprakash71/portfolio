@@ -1038,7 +1038,10 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round
 
 .gal-count {
   position: absolute;
-  top: .8rem; right: .8rem;
+  top: .8rem;
+  /* clear of the close button, which is 38px wide at right: .85rem and sits
+     on a higher layer — parked in the same corner it would be covered */
+  right: calc(38px + 1.45rem);
   z-index: 2;
   font-family: var(--font-mono);
   font-size: .66rem;
