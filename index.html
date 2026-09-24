@@ -20,7 +20,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="style.css">
+<!-- ?v= is a cache-buster. GitHub Pages serves these with max-age=600, so
+     after a deploy a visitor can hold a fresh index.html next to a ten-minute-
+     old stylesheet and get a half-broken page. BUMP THIS NUMBER whenever
+     style.css, data.js or app.js changes. -->
+<link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
 
@@ -200,7 +204,7 @@
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
 </button>
 
-<script src="data.js"></script>
-<script src="app.js"></script>
+<script src="data.js?v=2"></script>
+<script src="app.js?v=2"></script>
 </body>
 </html>
