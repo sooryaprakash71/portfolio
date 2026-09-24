@@ -75,6 +75,7 @@
   $("#heroRole").textContent    = SITE.role;
   $("#heroTagline").textContent = SITE.tagline;
   $("#heroIntro").textContent   = SITE.intro;
+  $("#heroMotto").textContent   = SITE.motto || "";
   $("#year").textContent        = SITE.copyrightYear || new Date().getFullYear();
   $("#footerLoc").textContent   = SITE.location;
 
@@ -152,12 +153,19 @@
   const personalCount = PROJECTS.filter(p => p.kind === "personal").length;
   const clientCount   = PROJECTS.filter(p => p.kind === "client").length;
 
+  /* Counted with the same baseType() the filter chips use (hoisted,
+     defined further down), so the chips and this number can never
+     disagree. */
+  const typeCount =
+    new Set(PROJECTS.map(p => baseType(p.type)).filter(Boolean)).size;
+
   const platformCount =
     (SITE.skills.find(g => g.group === "Platforms") || { items: [] }).items.length;
 
   const STATS = [
     { n: personalCount,  label: "Games built" },
     { n: clientCount,    label: "Client projects" },
+    { n: typeCount,      label: "Project types" },
     { n: platformCount,  label: "Platforms shipped" }
   ];
 
@@ -321,6 +329,10 @@
       ? '<span class="badge">' + ICONS.lock + "Client work</span>"
       : '<span class="badge">' + ICONS.user + "Personal work</span>";
 
+    /* The corner chip always uses `type` — it is short by construction, and
+       the two badges sit in opposite corners with nothing to stop a long one
+       running into the other. A longer, more readable `typeLabel` (where one
+       exists) is shown in the modal's meta row instead. */
     const typeBadge = p.type
       ? '<span class="badge badge-type">' + esc(p.type) + "</span>"
       : "";
@@ -426,6 +438,85 @@
            "</div>";
   }
 
+  /* Optional pull quote under the blurb — an array of lines, kept as separate
+     lines rather than one wrapped sentence because the break is the point. */
+  function taglineHTML(p) {
+    if (!p.tagline || !p.tagline.length) return "";
+    const lines = Array.isArray(p.tagline) ? p.tagline : [p.tagline];
+    return '<p class="modal-tagline">' +
+           lines.map(t => "<span>" + esc(t) + "</span>").join("") +
+           "</p>";
+  }
+
+  /* Optional lead paragraphs, sitting between the meta row and the bullets. */
+  function leadHTML(p) {
+    if (!p.lead || !p.lead.length) return "";
+    return '<div class="modal-lead">' +
+           p.lead.map(t => "<p>" + esc(t) + "</p>").join("") +
+           "</div>";
+  }
+
+  /* Optional long-form write-up. A section carries either `body` (an array of
+     paragraphs) or `items` (labelled entries, e.g. one bug and its fix each).
+     Projects without a `sections` block simply skip all of this. */
+  function sectionsHTML(p) {
+    if (!p.sections || !p.sections.length) return "";
+
+    return p.sections.map(function (s) {
+      let inner = "";
+
+      if (s.body && s.body.length) {
+        inner += '<div class="modal-body">' +
+                 s.body.map(t => "<p>" + esc(t) + "</p>").join("") +
+                 "</div>";
+      }
+      if (s.stats && s.stats.length) {
+        inner += '<ul class="fig-grid">' +
+                 s.stats.map(function (f) {
+                   return "<li><strong>" + esc(f.value) + "</strong>" +
+                          "<span>" + esc(f.label) + "</span></li>";
+                 }).join("") +
+                 "</ul>";
+      }
+      if (s.bullets && s.bullets.length) {
+        inner += '<ul class="hl-list">' +
+                 s.bullets.map(t => "<li>" + esc(t) + "</li>").join("") +
+                 "</ul>";
+      }
+      if (s.steps && s.steps.length) {
+        inner += '<ol class="step-list">' +
+                 s.steps.map(t => "<li>" + esc(t) + "</li>").join("") +
+                 "</ol>";
+      }
+      if (s.items && s.items.length) {
+        inner += '<dl class="spec-list">' +
+                 s.items.map(function (i) {
+                   return "<div><dt>" + esc(i.label) + "</dt>" +
+                          "<dd>" + esc(i.text) + "</dd></div>";
+                 }).join("") +
+                 "</dl>";
+      }
+      /* closing paragraphs, for the line that lands after a list */
+      if (s.after && s.after.length) {
+        inner += '<div class="modal-body">' +
+                 s.after.map(t => "<p>" + esc(t) + "</p>").join("") +
+                 "</div>";
+      }
+
+      return '<h4 class="modal-h">' + esc(s.heading) + "</h4>" + inner;
+    }).join("");
+  }
+
+  /* `detail` is a single string on most projects and an array of paragraphs
+     on the longer write-ups. Both render into the same accent callout. */
+  function detailHTML(p) {
+    if (!p.detail || !p.detail.length) return "";
+    const paras = Array.isArray(p.detail) ? p.detail : [p.detail];
+    return '<div class="modal-detail">' +
+           paras.map(t => "<p>" + esc(t) + "</p>").join("") +
+           "</div>";
+  }
+
   function extraShots(p) {
     const imgs = (p.media && p.media.images) || [];
     if (imgs.length < 2) return "";
@@ -451,18 +542,43 @@
         '<h2 class="modal-title">' + esc(p.title) + "</h2>" +
         '<p class="modal-blurb">' + esc(p.blurb) + "</p>" +
 
+        taglineHTML(p) +
+
         '<dl class="meta-row">' +
           "<div><dt>Role</dt><dd>" + esc(p.role) + "</dd></div>" +
-          (p.type ? "<div><dt>Type</dt><dd>" + esc(p.type) + "</dd></div>" : "") +
+          (p.type ? "<div><dt>Type</dt><dd>" + esc(p.typeLabel || p.type) + "</dd></div>" : "") +
           "<div><dt>Built with</dt><dd>" + esc(p.tech.join(", ")) + "</dd></div>" +
+          (p.platform ? "<div><dt>Platform</dt><dd>" + esc(p.platform) + "</dd></div>" : "") +
+          (p.status ? "<div><dt>Status</dt><dd>" + esc(p.status) + "</dd></div>" : "") +
+          /* any further label/value pairs a project wants in the meta row */
+          ((p.meta || []).map(function (x) {
+            return "<div><dt>" + esc(x.label) + "</dt><dd>" + esc(x.value) + "</dd></div>";
+          }).join("")) +
         "</dl>" +
 
-        '<h4 class="modal-h">What it does</h4>' +
-        '<ul class="hl-list">' +
-          p.highlights.map(h => "<li>" + esc(h) + "</li>").join("") +
-        "</ul>" +
+        leadHTML(p) +
 
-        '<div class="modal-detail">' + esc(p.detail) + "</div>" +
+        (p.highlights && p.highlights.length
+          ? '<h4 class="modal-h">' +
+              esc(p.highlightsHeading || "What it does") +
+            "</h4>" +
+            '<ul class="hl-list">' +
+              p.highlights.map(h => "<li>" + esc(h) + "</li>").join("") +
+            "</ul>"
+          : "") +
+
+        sectionsHTML(p) +
+
+        detailHTML(p) +
+
+        /* a closing notice — confidentiality, licensing and the like.
+           One string or several paragraphs. */
+        (p.note
+          ? '<div class="modal-note">' + ICONS.lock + "<div>" +
+              (Array.isArray(p.note) ? p.note : [p.note])
+                .map(t => "<p>" + esc(t) + "</p>").join("") +
+            "</div></div>"
+          : "") +
 
         extraShots(p) +
       "</div>";

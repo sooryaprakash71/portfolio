@@ -325,6 +325,7 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round
 .hero-text > *:nth-child(4) { animation-delay: .22s; }
 .hero-text > *:nth-child(5) { animation-delay: .28s; }
 .hero-text > *:nth-child(6) { animation-delay: .34s; }
+.hero-text > *:nth-child(7) { animation-delay: .40s; }
 .hero-side                  { animation-delay: .18s; }
 
 .hero-title {
@@ -345,7 +346,30 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round
   font-size: 1.045rem;
   color: var(--ink-soft);
   max-width: 60ch;
-  margin-bottom: 2rem;
+  margin-bottom: 1.15rem;
+}
+
+/* the sign-off: mono and letter-spaced so it reads as a stamp rather than
+   another sentence, with a short accent rule to set it apart from the intro */
+.hero-motto {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  font-family: var(--font-mono);
+  font-size: .76rem;
+  font-weight: 500;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 2rem;
+}
+.hero-motto::before {
+  content: "";
+  width: 1.6rem;
+  height: 1.5px;
+  background: var(--accent);
+  flex: none;
+  opacity: .65;
 }
 
 .hero-actions {
@@ -687,14 +711,20 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round
 }
 .badge svg { width: 11px; height: 11px; stroke-width: 2.4; }
 
-/* project type (2D / 3D / VR / AR / AVP …) — opposite corner to the NDA badge */
+/* project type (2D / 3D / VR / AR / AVP …) — opposite corner to the NDA badge.
+   Capped and allowed to wrap: the two badges are absolutely positioned in
+   opposite corners, so without a ceiling a long type label runs straight over
+   the one on the left. */
 .badge-type {
   left: auto;
   right: .8rem;
+  max-width: calc(50% - 1.2rem);
   color: var(--accent);
   background: color-mix(in srgb, var(--surface) 88%, transparent);
   border-color: color-mix(in srgb, var(--accent) 34%, transparent);
   font-weight: 500;
+  text-align: right;
+  line-height: 1.35;
 }
 
 
@@ -708,6 +738,17 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round
   grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
   gap: clamp(2rem, 5vw, 4.5rem);
   align-items: start;
+}
+
+/* Six skill groups leave the panel roughly twice the height of the prose
+   beside it. Pinning the prose keeps it in view while the list scrolls past,
+   instead of stranding it at the top of a long empty column. Only above the
+   940px breakpoint, below which the grid is a single column anyway. */
+@media (min-width: 941px) {
+  .about-main {
+    position: sticky;
+    top: 92px;
+  }
 }
 
 .prose { margin-bottom: 1.9rem; }
@@ -957,6 +998,126 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round
   transform: rotate(45deg);
 }
 
+/* the hook, in the display face — each line kept on its own line, because
+   the break between them is doing the work */
+.modal-tagline {
+  display: flex;
+  flex-direction: column;
+  gap: .15rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2.6vw, 1.45rem);
+  font-weight: var(--title-weight);
+  line-height: 1.3;
+  letter-spacing: var(--title-spacing);
+  color: var(--accent);
+  padding-left: 1.1rem;
+  border-left: 3px solid var(--accent);
+  margin: 0 0 1.5rem;
+}
+
+/* the opening description, a step up in size from ordinary body copy */
+.modal-lead { margin: 0 0 1.9rem; }
+.modal-lead p {
+  font-size: 1.01rem;
+  color: var(--ink-soft);
+  line-height: 1.68;
+  margin: 0 0 1em;
+}
+.modal-lead p:last-child { margin-bottom: 0; }
+
+/* long-form write-up paragraphs under a .modal-h heading */
+.modal-body { margin: 0 0 1.9rem; }
+.modal-body p {
+  font-size: .955rem;
+  color: var(--ink-soft);
+  line-height: 1.65;
+  margin: 0 0 1em;
+}
+.modal-body p:last-child { margin-bottom: 0; }
+
+/* a figures block — the number carries the point, the label explains it */
+.fig-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.9rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1.15rem 1.4rem;
+}
+.fig-grid strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: var(--title-weight);
+  line-height: 1;
+  letter-spacing: -.03em;
+  color: var(--accent);
+}
+.fig-grid span {
+  display: block;
+  margin-top: .4rem;
+  font-family: var(--font-mono);
+  font-size: .66rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+/* an ordered pipeline — numbered because the order is the content */
+.step-list {
+  list-style: none;
+  counter-reset: step;
+  padding: 0;
+  margin: 0 0 1.9rem;
+  display: grid;
+  gap: .75rem;
+}
+.step-list li {
+  counter-increment: step;
+  position: relative;
+  padding-left: 2.4rem;
+  font-size: .955rem;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+.step-list li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0; top: 0;
+  width: 1.6rem;
+  height: 1.6rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  font-weight: 700;
+}
+
+/* labelled entries — one problem and its fix per row */
+.spec-list { margin: 0 0 1.9rem; display: grid; gap: 1.15rem; }
+.spec-list dt {
+  font-family: var(--font-mono);
+  font-size: .7rem;
+  font-weight: 500;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: .35rem;
+}
+.spec-list dd {
+  margin: 0;
+  padding-left: .9rem;
+  border-left: 2px solid var(--line-strong);
+  font-size: .945rem;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+
 .modal-detail {
   font-size: .975rem;
   color: var(--ink-soft);
@@ -966,6 +1127,30 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   margin-bottom: 1.7rem;
 }
+.modal-detail p { margin: 0 0 .9em; }
+.modal-detail p:last-child { margin-bottom: 0; }
+
+/* a closing notice, set apart from the prose above it */
+.modal-note {
+  display: flex;
+  align-items: flex-start;
+  gap: .65rem;
+  margin: 0 0 1.7rem;
+  padding-top: 1.1rem;
+  border-top: 1px dashed var(--line-strong);
+  font-size: .89rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.modal-note svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  margin-top: .15rem;
+  stroke-width: 1.8;
+}
+.modal-note p { margin: 0 0 .7em; }
+.modal-note p:last-child { margin-bottom: 0; }
 
 .shot-grid {
   display: grid;
