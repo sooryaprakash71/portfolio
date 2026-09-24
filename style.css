@@ -989,19 +989,6 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round
 .gal-slide video,
 .gal-slide iframe { width: 100%; height: 100%; object-fit: cover; border: 0; display: block; }
 
-/* YouTube still + play button, swapped for the real iframe on click */
-.yt-facade {
-  position: absolute;
-  inset: 0;
-  display: block;
-  padding: 0;
-  border: 0;
-  cursor: pointer;
-  background: #000;
-}
-.yt-facade img { opacity: .82; transition: opacity .25s ease, transform .5s ease; }
-.yt-facade:hover img { opacity: 1; transform: scale(1.03); }
-
 /* shown in place of the player when the page is opened from disk */
 .yt-blocked {
   position: absolute;
@@ -1026,24 +1013,6 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round
   color: var(--accent);
 }
 .yt-blocked .btn { margin-top: .2rem; }
-
-/* a vertical video (a Short) fitted into the 16:9 stage rather than cropped */
-.gal-slide.is-portrait .yt-facade img { object-fit: contain; }
-.gal-slide.is-portrait .yt-facade:hover img { transform: none; }
-.yt-play {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 66px; height: 46px;
-  display: grid;
-  place-items: center;
-  border-radius: 12px;
-  background: color-mix(in srgb, var(--accent) 92%, transparent);
-  box-shadow: 0 6px 22px rgba(0, 0, 0, .45);
-  transition: transform .22s cubic-bezier(.34, 1.4, .64, 1);
-}
-.yt-facade:hover .yt-play { transform: translate(-50%, -50%) scale(1.08); }
-.yt-play svg { width: 22px; height: 22px; fill: var(--accent-ink); stroke: none; }
 
 /* stage controls */
 .gal-nav {

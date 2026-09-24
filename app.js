@@ -453,29 +453,12 @@
              "</div>";
     }
 
-    /* YouTube stays a still until it is asked for: the real iframe is heavy,
-       and building it on click means nothing is requested from YouTube for a
-       visitor who never presses play. */
+    /* Left empty on purpose: activateSlide() builds the real YouTube player
+       the moment this slide is actually shown. That gives YouTube's own
+       poster, red play button and letterboxing — and still asks YouTube for
+       nothing until a visitor looks at the video. */
     return '<div class="gal-slide"' + hide + ' data-kind="youtube" data-yt="' +
-             esc(s.id) + '">' +
-             '<button class="yt-facade" type="button" aria-label="Play ' +
-               esc(p.title) + ' video">' +
-               /* Shorts are portrait: cover would crop the frame to a sliver,
-                  so a tall still is fitted and letterboxed instead. */
-               /* deliberately not lazy: the slide starts hidden, and a lazy
-                  image inside it is not fetched until long after the viewer
-                  has switched to it — which shows as a black stage */
-               '<img src="https://img.youtube.com/vi/' + esc(s.id) +
-                 '/maxresdefault.jpg" alt="" ' +
-                 'onload="if(this.naturalHeight&gt;this.naturalWidth)' +
-                   'this.closest(\'.gal-slide\').classList.add(\'is-portrait\');" ' +
-                 'onerror="this.onerror=null;this.src=\'https://img.youtube.com/vi/' +
-                 esc(s.id) + '/hqdefault.jpg\'">' +
-               '<span class="yt-play" aria-hidden="true">' +
-                 '<svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg>' +
-               "</span>" +
-             "</button>" +
-           "</div>";
+             esc(s.id) + '"></div>';
   }
 
   function thumbHTML(p, s, i) {
@@ -540,18 +523,19 @@
     const from = Number(gal.dataset.index || 0);
     if (to === from && gal.dataset.ready) return;
 
-    /* leaving a slide: stop whatever was playing on it */
+    /* leaving a slide: stop whatever was playing on it. Tearing the iframe
+       out is what actually stops YouTube — it would otherwise keep playing
+       behind a hidden slide. */
     const leaving = slides[from];
-    if (leaving) {
+    if (leaving && from !== to) {
       const v = $("video", leaving);
       if (v) v.pause();
       const frame = $("iframe", leaving);
-      if (frame) frame.remove();               // collapses YouTube back to its still
-      const facade = $(".yt-facade", leaving);
-      if (facade) facade.hidden = false;
+      if (frame) frame.remove();
     }
 
     slides.forEach((s, i) => { s.hidden = i !== to; });
+    activateSlide(slides[to]);
     $$(".gal-thumb", gal).forEach((t, i) => t.classList.toggle("is-active", i === to));
 
     const counter = $(".gal-count b", gal);
@@ -561,20 +545,21 @@
     gal.dataset.ready = "1";
   }
 
-  function playYouTube(slide) {
-    if ($("iframe", slide)) return;
+  /* Build the YouTube player for a slide the moment it is shown. Not on
+     click: the point is that the visitor sees YouTube's own player sitting
+     there ready, exactly as it looks on YouTube. */
+  function activateSlide(slide) {
+    if (!slide || slide.dataset.kind !== "youtube") return;
+    if ($("iframe", slide) || $(".yt-blocked", slide)) return;   // already built
 
     const id = slide.dataset.yt;
 
     /* A page opened straight off disk has no origin, so the embed sends no
        Referer and YouTube refuses it with "Video player configuration error
        (Error 153)". No embed can work from file://, so say so plainly rather
-       than showing YouTube's error or silently navigating away. Served over
-       http — serve.ps1, or the deployed site — this branch never runs. */
+       than showing YouTube's error. Served over http — serve.ps1, or the
+       deployed site — this branch never runs. */
     if (location.protocol === "file:") {
-      const facade = $(".yt-facade", slide);
-      if (facade) facade.hidden = true;
-
       const msg = document.createElement("div");
       msg.className = "yt-blocked";
       msg.innerHTML =
@@ -590,15 +575,13 @@
       return;
     }
 
+    /* no autoplay — YouTube shows its poster and its own play button, and
+       the visitor decides */
     const frame = document.createElement("iframe");
-    frame.src = "https://www.youtube.com/embed/" + encodeURIComponent(id) +
-                "?autoplay=1&rel=0";
+    frame.src = "https://www.youtube.com/embed/" + encodeURIComponent(id) + "?rel=0";
     frame.title = "Gameplay video";
-    frame.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture";
+    frame.allow = "accelerometer; clipboard-write; encrypted-media; picture-in-picture";
     frame.allowFullscreen = true;
-
-    const facade = $(".yt-facade", slide);
-    if (facade) facade.hidden = true;
     slide.appendChild(frame);
   }
 
@@ -611,10 +594,7 @@
     if (thumb) { galleryGo(gal, Number(thumb.dataset.go)); return; }
 
     if (e.target.closest(".gal-prev")) { galleryGo(gal, Number(gal.dataset.index || 0) - 1); return; }
-    if (e.target.closest(".gal-next")) { galleryGo(gal, Number(gal.dataset.index || 0) + 1); return; }
-
-    const facade = e.target.closest(".yt-facade");
-    if (facade) playYouTube(facade.closest(".gal-slide"));
+    if (e.target.closest(".gal-next")) { galleryGo(gal, Number(gal.dataset.index || 0) + 1); }
   });
 
   /* Optional pull quote under the blurb — an array of lines, kept as separate
@@ -755,6 +735,10 @@
 
     modal.hidden = false;
     document.body.classList.add("no-scroll");
+
+    /* the first slide is showing already, so it never goes through
+       galleryGo() — matters for a project whose only medium is a video */
+    activateSlide($(".gal-slide:not([hidden])", modalScroll));
 
     /* Restore before focusing: focus() on an element inside a scroll
        container can scroll it, which would undo this. */
