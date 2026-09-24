@@ -77,7 +77,7 @@
   $("#heroIntro").textContent   = SITE.intro;
   $("#heroMotto").textContent   = SITE.motto || "";
   $("#year").textContent        = SITE.copyrightYear || new Date().getFullYear();
-  $("#footerLoc").textContent   = SITE.location;
+  $("#footerNote").textContent  = SITE.footerNote || "";
 
   document.title = SITE.name + " — " + SITE.role;
 
@@ -413,6 +413,12 @@
   const modalScroll = $("#modalScroll");
   let lastFocused   = null;
 
+  /* One scroll container is reused for every project, so its scrollTop
+     carries over unless it is dealt with. Each project remembers where it
+     was left; a project opened for the first time starts at the top. */
+  const scrollMemory = {};
+  let openId = null;
+
   function modalMedia(p) {
     const m = p.media || {};
 
@@ -585,7 +591,30 @@
 
     modal.hidden = false;
     document.body.classList.add("no-scroll");
+
+    /* Restore before focusing: focus() on an element inside a scroll
+       container can scroll it, which would undo this. */
+    openId = id;
+    restoreScroll(id);
+
     $("#modalClose").focus();
+    restoreScroll(id);
+  }
+
+  /* Media loads after the markup goes in, so the panel can still be short
+     when the position is first applied and a deep scrollTop gets clamped.
+     Re-apply once anything that changes the height has finished loading. */
+  function restoreScroll(id) {
+    const target = scrollMemory[id] || 0;
+    modalScroll.scrollTop = target;
+    if (!target) return;
+
+    $$("img, iframe, video", modalScroll).forEach(function (el) {
+      if (el.complete) return;
+      el.addEventListener("load", function () {
+        if (openId === id) modalScroll.scrollTop = target;
+      }, { once: true });
+    });
   }
 
   function closeModal() {
@@ -593,6 +622,10 @@
 
     const video = $("video", modalScroll);
     if (video) video.pause();
+
+    /* Save before clearing — emptying the container resets scrollTop to 0. */
+    if (openId) scrollMemory[openId] = modalScroll.scrollTop;
+    openId = null;
 
     modal.hidden = true;
     modalScroll.innerHTML = "";

@@ -51,6 +51,9 @@ const SITE = {
   // Footer copyright year. Change this string to whatever you want shown.
   copyrightYear: "2023",
 
+  // Second footer line, under the copyright. Set to "" to hide it.
+  footerNote: "Built from scratch · Hosted on GitHub Pages",
+
   // Drop a headshot into media/ and put its path here, e.g. "media/profile.jpg"
   photo:    "media/profile.jpg",
 
