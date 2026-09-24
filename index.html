@@ -182,11 +182,17 @@
 <!-- =================================================== MODAL ========== -->
 <div class="modal" id="modal" hidden>
   <div class="modal-backdrop" data-close></div>
-  <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <button class="modal-close" id="modalClose" type="button" aria-label="Close">
+
+  <!-- the close control sits above the panel rather than on top of its
+       media, so it can never cover the gallery counter or the player -->
+  <div class="modal-frame">
+    <button class="modal-close" id="modalClose" type="button">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      Close
     </button>
-    <div class="modal-scroll" id="modalScroll"></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-scroll" id="modalScroll"></div>
+    </div>
   </div>
 </div>
 
