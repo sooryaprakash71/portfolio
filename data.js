@@ -28,7 +28,7 @@
 const SITE = {
   name:     "Soorya Prakash S",
   role:     "Game & XR Developer",
-  tagline:  "I build games from mechanics to finished experiences — made to " +
+  tagline:  "I build games from mechanics to finished experiences, made to " +
             "be played, not just watched.",
 
   // The hook. Keep this to two short sentences: it is the first thing anyone
@@ -58,14 +58,14 @@ const SITE = {
   photo:    "media/profile.jpg",
 
   about: [
-    "I’m a Game Developer working with Unity and C#, building experiences " +
-    "across 2D, 3D, AR, VR, and MR. Since 2023, I’ve been working on Unity " +
+    "I'm a Game Developer working with Unity and C#, building experiences " +
+    "across 2D, 3D, AR, VR, and MR. Since 2023, I've been working on Unity " +
     "and XR applications at Tata Consultancy Services, building gameplay " +
     "systems, interaction systems, UI flows, and spatial experiences across " +
     "different platforms.",
 
     "Alongside client work, I build my own games to explore systems that " +
-    "interest me — from grid-based puzzles and physics-driven platformers to " +
+    "interest me, from grid-based puzzles and physics-driven platformers to " +
     "multiplayer chess and experimental gameplay mechanics. I use these " +
     "projects to understand how things work underneath rather than relying " +
     "entirely on ready-made solutions.",
@@ -122,7 +122,7 @@ const PROJECTS = [
     blurb: "A 2D physics platformer where you roll, bounce, and flip gravity " +
            "through six levels of momentum-driven challenges, with procedural " +
            "visuals generated at runtime.",
-    role: "Solo developer — game design, programming, level design, audio",
+    role: "Solo developer: game design, programming, level design, audio",
     tech: ["Unity 6", "C#", "2D Physics", "Procedural Graphics", "Runtime Audio"],
     platform: "Windows",
     highlights: [
@@ -236,14 +236,14 @@ const PROJECTS = [
     title: "Remnant",
     kind: "personal",
     type: "2D Puzzle-Platformer",
-    blurb: "A 2D puzzle-platformer where every jump is a decision — freeze " +
+    blurb: "A 2D puzzle-platformer where every jump is a decision. Freeze " +
            "your body to leave behind platforms, springs, and paths that help " +
            "you reach the exit.",
     tagline: [
       "You cannot reach the exit.",
       "What you leave behind can."
     ],
-    role: "Solo developer — game design, programming, level design, physics, UI, audio",
+    role: "Solo developer: game design, programming, level design, physics, UI, audio",
     tech: ["Unity 6", "C#", "Custom Physics", "Procedural Systems", "Runtime Audio"],
     platform: "Windows",
     lead: [
@@ -405,7 +405,7 @@ const PROJECTS = [
            "a sequence, turning counting, letters, and spelling into one " +
            "simple gameplay mechanic.",
     tagline: "Learn one bite at a time.",
-    role: "Solo developer — game design, programming, level design, UI",
+    role: "Solo developer: game design, programming, level design, UI",
     tech: ["Unity 6", "C#", "Custom Simulation", "Procedural Generation", "Runtime Systems"],
     platform: "Windows",
     lead: [
@@ -532,7 +532,7 @@ const PROJECTS = [
           "and let the child complete the activity independently.",
 
           "The important part is that the underlying garden and gameplay rules " +
-          "remain the same; only the amount of guidance changes."
+          "remain the same. Only the amount of guidance changes."
         ]
       },
       {
@@ -607,7 +607,7 @@ const PROJECTS = [
            "movement, level design, undo systems, and automated level " +
            "verification.",
     tagline: "Think ahead. Push carefully. Every move matters.",
-    role: "Solo developer — game design, programming, level design, UI",
+    role: "Solo developer: game design, programming, level design, UI",
     tech: ["Unity 6", "C#", "Custom Grid System", "BFS Solver", "Procedural Scene Generation"],
     platform: "Windows",
     lead: [
@@ -786,11 +786,11 @@ const PROJECTS = [
     title: "Chess",
     kind: "personal",
     type: "2D with multiplayer",
-    blurb: "A complete chess game with three ways to play — pass-and-play, " +
-           "LAN and online — where the rules engine, the network protocol " +
+    blurb: "A complete chess game with three ways to play (pass-and-play, " +
+           "LAN and online) where the rules engine, the network protocol " +
            "and the relay server are all written from scratch.",
     tagline: "The chess was the easy part. Everything between the two players wasn't.",
-    role: "Solo developer — rules engine, netcode, relay server, UI",
+    role: "Solo developer: rules engine, netcode, relay server, UI",
     tech: ["Unity 6", "C#", "Multiplayer Networking"],
     lead: [
       "I built a chess game to understand multiplayer networking from the " +
@@ -804,9 +804,9 @@ const PROJECTS = [
     ],
     highlightsHeading: "Three ways to play",
     highlights: [
-      "Pass & Play — two players share one device. The board rotates after every move so each player gets their own perspective.",
-      "LAN Multiplayer — two devices communicate directly over the same network. UDP discovery finds available hosts and TCP handles the actual game communication.",
-      "Online Multiplayer — players connect to a publicly reachable WebSocket relay. The relay pairs them and forwards moves between clients.",
+      "Pass & Play: two players share one device. The board rotates after every move so each player gets their own perspective.",
+      "LAN Multiplayer: two devices communicate directly over the same network. UDP discovery finds available hosts and TCP handles the actual game communication.",
+      "Online Multiplayer: players connect to a publicly reachable WebSocket relay. The relay pairs them and forwards moves between clients.",
       "The important part: all three modes use the same chess rules engine."
     ],
     sections: [
@@ -924,10 +924,10 @@ const PROJECTS = [
     kind: "personal",
     type: "2D tool",
     blurb: "Load any image, drop labelled hotspots on the regions that matter, " +
-           "then explore it by hovering — the same build both authors the " +
+           "then explore it by hovering. The same build both authors the " +
            "lesson and delivers it.",
     tagline: "An interactive image-based learning tool for teaching children through visual exploration.",
-    role: "Solo developer — design, gameplay interaction, UI and tooling",
+    role: "Solo developer: design, gameplay interaction, UI and tooling",
     tech: ["Unity 6", "C#", "uGUI", "Procedural UI"],
     platform: "Windows",
     status: "Playable Unity project",
@@ -1018,7 +1018,7 @@ const PROJECTS = [
     blurb: "Grab the ball with controllers or bare hands, swing, and let the " +
            "release carry your own arm motion down the lane.",
     tagline: "A realistic VR bowling experience built around natural grabbing, throwing, physics, and scoring.",
-    role: "Solo developer — VR interaction, physics, gameplay, UI and environment",
+    role: "Solo developer: VR interaction, physics, gameplay, UI and environment",
     tech: ["Unity", "C#", "XR Interaction Toolkit", "OpenXR", "Android VR"],
     platform: "Meta Quest 2 & Quest 3",
     status: "Playable VR project",
@@ -1043,7 +1043,7 @@ const PROJECTS = [
       {
         heading: "The core challenge",
         body: [
-          "The difficult part was not creating a bowling lane — it was making " +
+          "The difficult part was not creating a bowling lane. It was making " +
           "the throw feel natural.",
 
           "The ball needs to stay connected to the player's hand while being " +
@@ -1115,7 +1115,7 @@ const PROJECTS = [
            "GameObjects, focused on the engineering behind networked combat " +
            "rather than visual polish.",
     tagline: "A multiplayer FPS built from scratch to understand networking, server authority, lag compensation, and competitive gameplay systems.",
-    role: "Solo developer — networking, gameplay systems, AI, UI",
+    role: "Solo developer: networking, gameplay systems, AI, UI",
     tech: ["Unity 6", "C#", "Netcode for GameObjects"],
     meta: [
       { label: "Networking", value: "LAN / IP-based multiplayer" },
@@ -1129,10 +1129,10 @@ const PROJECTS = [
       "bomb objectives, and AI opponents."
     ],
     highlights: [
-      "Players connect directly over LAN by entering the host's IP address. The host listens on port 7777; there is no matchmaking, relay service, or lobby backend.",
+      "Players connect directly over LAN by entering the host's IP address. The host listens on port 7777. There is no matchmaking, relay service, or lobby backend.",
       "Matches support a variable number of players. New players are assigned to the smaller team, while AI bots can fill the lobby.",
       "The game combines team elimination with a bomb objective. A round can end through team elimination, a successful bomb explosion, a defuse, or the round timer expiring.",
-      "Six weapon types are implemented — knife, pistol, SMG, shotgun, rifle, and sniper — each with different stats and recoil, alongside armor, grenades, flashbangs, smoke, defuse kits, and a full buy system.",
+      "Six weapon types are implemented (knife, pistol, SMG, shotgun, rifle, and sniper), each with different stats and recoil, alongside armor, grenades, flashbangs, smoke, defuse kits, and a full buy system.",
       "The economy includes kill, win, loss, assist, plant, and defuse rewards, with weapon purchasing, selling, dropping, and picking up.",
       "Guns use server-side mathematical hit detection against head, torso, and leg hit regions. Physics raycasts are used only to determine whether environmental geometry blocks the shot.",
       "When a player dies, their primary weapon drops into the world and they enter spectator mode until the next round."
@@ -1289,20 +1289,20 @@ const PROJECTS = [
     kind: "personal",
     type: "3D Platformer",
     blurb: "A third-person 3D platformer across three floating-island levels, " +
-           "with dash, double jump and a speedrun timer — player, levels, " +
+           "with dash, double jump and a speedrun timer. Player, levels, " +
            "camera and UI all constructed from code.",
     tagline: "A third-person 3D platformer about movement, timing, and reaching the finish without losing momentum.",
-    role: "Solo developer — gameplay, movement, camera, levels, audio, UI",
+    role: "Solo developer: gameplay, movement, camera, levels, audio, UI",
     tech: ["Unity 6", "C#", "Character Controller", "Procedural Generation", "Procedural Audio"],
     platform: "Windows",
     highlights: [
-      "Responsive movement — the player can run, sprint, jump, double jump and dash. These movement abilities form the core of the platforming experience.",
+      "Responsive movement: the player can run, sprint, jump, double jump and dash. These movement abilities form the core of the platforming experience.",
       "Three floating-island levels built around the same movement system, with progressively more demanding platform layouts and hazards.",
-      "Checkpoint-based recovery — falling or touching a hazard respawns the player at the latest checkpoint rather than restarting the entire level.",
+      "Checkpoint-based recovery: falling or touching a hazard respawns the player at the latest checkpoint rather than restarting the entire level.",
       "A speedrun timer on each level. The timer continues after a respawn, encouraging players to improve their route and beat their previous best time.",
       "Optional collectibles placed throughout the levels for players who want to explore and improve their completion.",
       "A third-person follow camera that keeps the player readable while moving through the vertical platforming sections.",
-      "Code-driven construction — the player, levels, UI and supporting systems are built through code rather than relying heavily on hand-authored Unity scenes.",
+      "Code-driven construction: the player, levels, UI and supporting systems are built through code rather than relying heavily on hand-authored Unity scenes.",
       "Procedural audio generated and assembled programmatically to provide feedback for movement and important game events."
     ],
     sections: [
@@ -1354,7 +1354,7 @@ const PROJECTS = [
     kind: "client",
     type: "VR Training",
     client: "Client work",
-    blurb: "Step-by-step VR training on Meta Quest — grab and manipulate " +
+    blurb: "Step-by-step VR training on Meta Quest: grab and manipulate " +
            "objects, move by teleport or smooth locomotion, and work through " +
            "a guided task flow.",
     tagline: "A VR training simulation focused on realistic hand interactions, comfortable locomotion and guided training workflows.",
@@ -1362,11 +1362,11 @@ const PROJECTS = [
     tech: ["Unity", "C#", "XR Interaction Toolkit", "OpenXR", "Oculus SDK", "AutoHands"],
     platform: "Meta Quest",
     highlights: [
-      "Realistic VR interactions — users can grab, hold and manipulate different objects using VR controllers or hands, with different objects supporting different interaction behaviours rather than one generic interaction.",
+      "Realistic VR interactions: users can grab, hold and manipulate different objects using VR controllers or hands, with different objects supporting different interaction behaviours rather than one generic interaction.",
       "Guided training structured around step-by-step tasks, allowing users to follow a defined workflow inside the VR environment.",
-      "Multiple locomotion options — both teleportation and smooth locomotion are available, giving users different ways to move through the environment while considering VR comfort.",
+      "Multiple locomotion options: both teleportation and smooth locomotion are available, giving users different ways to move through the environment while considering VR comfort.",
       "An interactive training environment where users interact directly with objects as part of the training process rather than simply observing instructions.",
-      "Multi-channel feedback — visual, audio, haptic and in-headset feedback communicate interaction states and training progress.",
+      "Multi-channel feedback: visual, audio, haptic and in-headset feedback communicate interaction states and training progress.",
       "Task completion and training progression, with assessment and score elements where applicable.",
       "Developed for Meta Quest, and involving OpenXR-based VR development.",
       "I worked on the Unity/XR development side of the project, implementing the interaction, gameplay and training systems, while the 3D modelling work was handled by another team member."
@@ -1410,7 +1410,7 @@ const PROJECTS = [
       "experience rather than treating VR as simply a different camera and " +
       "input device."
     ],
-    note: "Client project — details are confidential. I can discuss the implementation, architecture and my contribution as a developer in an interview.",
+    note: "Client project. Details are confidential. I can discuss the implementation, architecture and my contribution as a developer in an interview.",
     media: { video: null, youtube: null, poster: null, images: ["media/vr-training-simulation.jpg"] }
   },
 
@@ -1423,18 +1423,18 @@ const PROJECTS = [
     type: "AVP",
     typeLabel: "Apple Vision Pro / Spatial Computing",
     client: "Client work",
-    blurb: "Look at an element, pinch to select — a controller-free Vision Pro " +
+    blurb: "Look at an element, pinch to select. A controller-free Vision Pro " +
            "prototype combining gaze targeting, hand tracking and spatial UI.",
     tagline: "An interactive spatial prototype for Apple Vision Pro, exploring hand and gaze interaction, spatial UI and object-based experiences.",
     role: "Unity / visionOS Developer",
     tech: ["Unity", "C#", "PolySpatial", "visionOS", "Hand Tracking", "Gaze Tracking"],
     platform: "Apple Vision Pro",
     highlights: [
-      "Spatial interaction — the demo explores interaction patterns designed specifically for Apple Vision Pro, replacing traditional controller input with hand and gaze-based interaction.",
+      "Spatial interaction: the demo explores interaction patterns designed specifically for Apple Vision Pro, replacing traditional controller input with hand and gaze-based interaction.",
       "Hand tracking used for pinch-based selection, allowing users to interact with UI elements naturally without physical controllers.",
-      "Gaze interaction — users can look at an element and use a pinch gesture to select it, combining gaze targeting with hand input.",
+      "Gaze interaction: users can look at an element and use a pinch gesture to select it, combining gaze targeting with hand input.",
       "Multiple spatial UI patterns designed for a headset-based interface rather than a traditional flat-screen application.",
-      "3D content — the prototype combines spatial UI with client-provided 3D content and environment elements.",
+      "3D content: the prototype combines spatial UI with client-provided 3D content and environment elements.",
       "Built specifically for Apple Vision Pro using Unity and PolySpatial, requiring a different interaction and presentation model from conventional Unity applications.",
       "I handled the Unity/visionOS development across the interaction, UI, scene integration and supporting systems."
     ],
@@ -1483,7 +1483,7 @@ const PROJECTS = [
       "and understanding how spatial computing changes the way interaction, UI " +
       "and 3D content are presented."
     ],
-    note: "Client project — details are confidential, but I can discuss the implementation and my contribution as a developer in an interview.",
+    note: "Client project. Details are confidential, but I can discuss the implementation and my contribution as a developer in an interview.",
     media: { video: null, youtube: null, poster: null, images: ["media/vision-pro-demo.jpg"] }
   },
 
@@ -1499,12 +1499,12 @@ const PROJECTS = [
     role: "Unity / AR Developer",
     tech: ["Unity", "C#", "AR Foundation", "ARCore", "uGUI"],
     highlights: [
-      "Real-world AR placement — the application detects suitable real-world surfaces and allows virtual objects to be placed into the user's physical environment.",
-      "Object placement and manipulation — users can select objects, place them in the environment and manipulate them through supported touch and gesture interactions.",
-      "Object transformation — placed objects can be moved, rotated and scaled, with controls designed around interaction directly within the AR experience.",
+      "Real-world AR placement: the application detects suitable real-world surfaces and allows virtual objects to be placed into the user's physical environment.",
+      "Object placement and manipulation: users can select objects, place them in the environment and manipulate them through supported touch and gesture interactions.",
+      "Object transformation: placed objects can be moved, rotated and scaled, with controls designed around interaction directly within the AR experience.",
       "An object library providing multiple predefined 3D objects that users can select and place into their environment.",
-      "Gesture-based interaction — touch and gesture input are used across object selection, placement and manipulation rather than relying only on conventional UI controls.",
-      "Persistent AR placement — objects remain anchored to their positions while the AR session is active, allowing users to continue interacting with the arranged scene.",
+      "Gesture-based interaction: touch and gesture input are used across object selection, placement and manipulation rather than relying only on conventional UI controls.",
+      "Persistent AR placement: objects remain anchored to their positions while the AR session is active, allowing users to continue interacting with the arranged scene.",
       "A reset workflow that removes the currently placed AR content and allows the user to start the arrangement again.",
       "I handled the Unity/AR development, including AR setup, tracking, object placement, manipulation, input handling, UI and scene/session management. 3D modelling was handled separately by a modeller on the team."
     ],
@@ -1549,7 +1549,7 @@ const PROJECTS = [
       "prototype where the interaction model, spatial tracking and user " +
       "interface had to work together as one system."
     ],
-    note: "Client project — details are confidential, but I can discuss the implementation and my contribution as a developer in an interview.",
+    note: "Client project. Details are confidential, but I can discuss the implementation and my contribution as a developer in an interview.",
     media: { video: null, youtube: null, poster: null, images: ["media/ar-prototype.jpg"] }
   },
 
@@ -1599,7 +1599,7 @@ const PROJECTS = [
     ],
     detail: [
       "The project brought together several areas of Unity development rather " +
-      "than focusing on a single feature — 3D movement, physics, camera " +
+      "than focusing on a single feature. 3D movement, physics, camera " +
       "systems, interaction handling, UI and input all had to work together as " +
       "one experience.",
 

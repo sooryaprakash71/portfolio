@@ -49,7 +49,7 @@
     const theme = THEMES.find(t => t.id === id) || THEMES[0];
     document.documentElement.setAttribute("data-theme", theme.id);
     if (themeName) themeName.textContent = theme.label;
-    if (themeBtn)  themeBtn.title = "Theme: " + theme.label + " — click to change";
+    if (themeBtn)  themeBtn.title = "Theme: " + theme.label + " (click to change)";
 
     /* match the mobile browser chrome to the theme */
     const meta = $("#themeColor");
@@ -79,7 +79,7 @@
   $("#year").textContent        = SITE.copyrightYear || new Date().getFullYear();
   $("#footerNote").textContent  = SITE.footerNote || "";
 
-  document.title = SITE.name + " — " + SITE.role;
+  document.title = SITE.name + " | " + SITE.role;
 
   /* ------------------------------------------------------- résumé -----
      Hero button views it in a new tab. About button saves it: Chromium
@@ -321,7 +321,7 @@
       return '<img src="' + esc(m.poster) + '" alt="' + esc(p.title) +
              '" loading="lazy">';
     }
-    return mediaSlot(p, p.kind === "client" ? "Media under NDA" : "Cover art — video coming soon");
+    return mediaSlot(p, p.kind === "client" ? "Media under NDA" : "Cover art, video coming soon");
   }
 
   function cardHTML(p, index) {
