@@ -726,11 +726,24 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round
 .card-cta svg { width: 15px; height: 15px; transition: transform .25s ease; }
 .card:hover .card-cta svg { transform: translateX(4px); }
 
-.badge {
+/* The two cover badges share one row. Each badge stays on a single line; if
+   a card is too narrow for both side by side, the type badge wraps onto a
+   second row, still right-aligned, instead of breaking its own text or
+   running over the other badge. */
+.card-badges {
   position: absolute;
-  top: .8rem; left: .8rem;
+  top: .8rem; left: .8rem; right: .8rem;
   z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: .4rem;
+  pointer-events: none;
+}
+
+.badge {
   display: inline-flex;
+  white-space: nowrap;
   align-items: center;
   gap: .3rem;
   font-family: var(--font-mono);
@@ -746,20 +759,13 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round
 }
 .badge svg { width: 11px; height: 11px; stroke-width: 2.4; }
 
-/* project type (2D / 3D / VR / AR / AVP …) — opposite corner to the NDA badge.
-   Capped and allowed to wrap: the two badges are absolutely positioned in
-   opposite corners, so without a ceiling a long type label runs straight over
-   the one on the left. */
+/* project type (2D / 3D / VR / AR / AVP) — pushed to the right of the row */
 .badge-type {
-  left: auto;
-  right: .8rem;
-  max-width: calc(50% - 1.2rem);
+  margin-left: auto;
   color: var(--accent);
   background: color-mix(in srgb, var(--surface) 88%, transparent);
   border-color: color-mix(in srgb, var(--accent) 34%, transparent);
   font-weight: 500;
-  text-align: right;
-  line-height: 1.35;
 }
 
 

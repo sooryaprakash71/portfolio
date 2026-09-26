@@ -329,20 +329,20 @@
       ? '<span class="badge">' + ICONS.lock + "Client work</span>"
       : '<span class="badge">' + ICONS.user + "Personal work</span>";
 
-    /* The corner chip always uses `type` — it is short by construction, and
-       the two badges sit in opposite corners with nothing to stop a long one
-       running into the other. A longer, more readable `typeLabel` (where one
-       exists) is shown in the modal's meta row instead. */
+    /* The corner chip uses `type`; a longer `typeLabel`, where one exists,
+       is shown in the modal's meta row instead. */
     const typeBadge = p.type
       ? '<span class="badge badge-type">' + esc(p.type) + "</span>"
       : "";
 
+    /* Both badges share one wrapping row. Each stays on a single line, and
+       on a card too narrow for both, the type badge drops to a second row
+       rather than breaking its own text or running over the other badge. */
     return (
       '<button class="card" type="button" data-id="' + esc(p.id) +
         '" data-kind="' + esc(p.kind) + '" style="transition-delay:' +
         (index % 3) * 70 + 'ms">' +
-        badge +
-        typeBadge +
+        '<div class="card-badges">' + badge + typeBadge + "</div>" +
         '<div class="card-media">' + cardMedia(p) + "</div>" +
         '<div class="card-body">' +
           '<div class="card-top">' +

@@ -18,7 +18,8 @@ detail modal for every project.
 | `app.js` | Behaviour — theme switching, filters, modal, custom cursor. Leave alone. |
 | `media/` | Screenshots and videos. One `.jpg` per project, plus `profile.jpg`. |
 | `Soorya-Prakash-S-Resume.pdf` | The résumé both résumé buttons point at. |
-| `serve.ps1` | Optional local web server (see below). |
+| `preview.cmd` | **Double-click to preview the site locally** (see below). |
+| `serve.ps1` | The local web server `preview.cmd` starts. |
 | `netlify.toml` | Netlify publish directory + security headers. |
 | `.nojekyll` | Tells GitHub Pages not to run Jekyll. Must exist. |
 | `.gitignore` | Excludes `.claude/`, the duplicate résumé, and OS clutter. |
@@ -48,11 +49,20 @@ Everything user-supplied is HTML-escaped before it reaches the DOM.
 
 ## Viewing it locally
 
-Double-click `index.html`. That is the whole process.
+**Double-click `preview.cmd`.** It starts a local server and opens
+<http://localhost:8099/> in your browser. Edit any file, press F5, and the
+change is there. No need to push to GitHub to check it. Close the minimised
+"Portfolio preview server" window to stop the server. Double-clicking it again
+while the server is running just reopens the page.
 
-If you want it over `http://` instead of `file://`, right-click `serve.ps1` →
-**Run with PowerShell**, then open <http://localhost:8099/>. It needs no Node,
-no Python, nothing installed. Close the window or press Ctrl+C to stop it.
+Don't preview by double-clicking `index.html`. The page mostly works that
+way, but the YouTube videos cannot: a page opened straight from a file has no
+web address, and YouTube refuses to embed without one ("Video player
+configuration error, Error 153").
+
+`preview.cmd` is only a shortcut for `serve.ps1`, which you can also run
+directly: right-click → **Run with PowerShell**, then open
+<http://localhost:8099/>. It needs no Node, no Python, nothing installed.
 
 It defaults to serving its own folder on port 8099, so it keeps working if you
 move or rename the directory. Both are overridable:
