@@ -115,6 +115,93 @@ const PROJECTS = [
 
   /* ---------------------------------------------------------------- 1 --- */
   {
+    id: "gin-distillation-training-simulation-vr",
+    title: "Gin Distillation Training Simulation VR",
+    kind: "personal",
+    type: "VR Training Simulation",
+    blurb: "A personal project demonstrating Unity/VR development, interactive " +
+           "training workflows and the implementation of real-world procedural " +
+           "simulations.",
+    tagline: "A VR training simulation that recreates the startup and distillation workflow of a gin production system through interactive equipment, controls and guided procedural steps.",
+    role: "Unity / VR Developer",
+    tech: ["Unity", "C#", "XR Interaction Toolkit", "OpenXR"],
+    highlights: [
+      "Simulates a complete gin distillation startup workflow through an interactive 3D environment.",
+      "Guides the user through the process step by step, from preparing the valves and feeding spirit into the still to starting steam service and completing the distillation.",
+      "Interactive valves and equipment controls allow the user to perform the required operations rather than simply watching a sequence.",
+      "Includes control-panel interactions for operating the spirit feed pump, monitoring spirit level and controlling the distillation process.",
+      "The training sequence requires the user to monitor important process parameters, including temperature, spirit level and foam formation.",
+      "Includes interactive still-hatch operations where the user unlocks, opens and closes the hatch before adding aromatics.",
+      "Aromatics such as juniper berries, cardamom, coriander seeds and dried angelica root are introduced as part of the distillation workflow.",
+      "The simulation represents the transition from manual setup to automatic distillation once the required parameters have been established.",
+      "The final stage allows the user to operate the receiver valve and collect the finished gin.",
+      "The workflow is designed around procedural learning, allowing the user to understand the sequence of operations and the relationship between different equipment controls."
+    ],
+    sections: [
+      {
+        heading: "My contribution",
+        bullets: [
+          "Built the project as a personal Unity/VR development project.",
+          "Implemented the interactive training workflow and equipment interactions.",
+          "Developed the interaction logic for valves, controls, hatch operations and process steps.",
+          "Integrated the control-panel interactions and process-state changes into the training sequence.",
+          "Focused on making the physical operations and procedural flow understandable through interactive 3D elements."
+        ]
+      },
+      {
+        heading: "Technical focus",
+        body: [
+          "The main focus of the project was translating a real-world " +
+          "industrial procedure into an interactive training experience.",
+
+          "The workflow contains dependent steps rather than isolated " +
+          "interactions: valves need to be configured before feeding spirit, " +
+          "the spirit level needs to reach the required point before " +
+          "continuing, aromatics are added through the still hatch, and steam " +
+          "parameters need to be monitored during distillation.",
+
+          "The simulation therefore combines interaction handling, procedural " +
+          "state management, equipment controls and training-oriented feedback " +
+          "into one experience."
+        ]
+      },
+      {
+        heading: "Training workflow",
+        steps: [
+          "Check that drain valves are closed.",
+          "Open the spirit feed valve.",
+          "Start the spirit feed pump.",
+          "Monitor the spirit level.",
+          "Stop the pump when the level reaches 0.8 m.",
+          "Prepare the aromatics.",
+          "Unlock the still access hatch.",
+          "Release the hatch lock.",
+          "Open the hatch.",
+          "Add the aromatics.",
+          "Close and secure the hatch.",
+          "Open the steam service valves.",
+          "Monitor steam temperature.",
+          "Monitor and regulate temperature and foam formation.",
+          "Continue the distillation in auto mode once the parameters are set.",
+          "Open the receiver valve and collect the finished gin."
+        ]
+      }
+    ],
+    detail: [
+      "Unlike the VR Training Simulation client work, this project is a " +
+      "personal development project created to explore how real-world " +
+      "industrial procedures can be converted into an interactive training " +
+      "experience.",
+
+      "The project focuses on the implementation side: interaction systems, " +
+      "procedural workflow, state-driven training logic and translating " +
+      "physical equipment operations into an understandable VR experience."
+    ],
+    media: { video: null, youtube: null, poster: null, images: ["media/gin-distillation-training-simulation-vr.jpg"] }
+  },
+
+  /* ---------------------------------------------------------------- 2 --- */
+  {
     id: "gravity-drift",
     title: "Gravity Drift",
     kind: "personal",
@@ -230,7 +317,7 @@ const PROJECTS = [
     media: { video: null, youtube: "5iVWMPrJIjg", poster: null, images: ["media/gravity-drift.jpg"] }
   },
 
-  /* ---------------------------------------------------------------- 2 --- */
+  /* ---------------------------------------------------------------- 3 --- */
   {
     id: "remnant",
     title: "Remnant",
@@ -395,7 +482,7 @@ const PROJECTS = [
     media: { video: null, youtube: "krx4gI6q_yo", poster: null, images: ["media/remnant.jpg"] }
   },
 
-  /* ---------------------------------------------------------------- 3 --- */
+  /* ---------------------------------------------------------------- 4 --- */
   {
     id: "glowworm",
     title: "Glowworm",
@@ -597,7 +684,7 @@ const PROJECTS = [
     media: { video: null, youtube: "837YQe2wOmk", poster: null, images: ["media/glowworm.jpg"] }
   },
 
-  /* ---------------------------------------------------------------- 4 --- */
+  /* ---------------------------------------------------------------- 5 --- */
   {
     id: "gridpush",
     title: "GridPush",
@@ -780,7 +867,7 @@ const PROJECTS = [
     media: { video: null, youtube: "jiE0wgsTYV8", poster: null, images: ["media/gridpush.jpg"] }
   },
 
-  /* ---------------------------------------------------------------- 5 --- */
+  /* ---------------------------------------------------------------- 6 --- */
   {
     id: "chess",
     title: "Chess",
@@ -917,7 +1004,7 @@ const PROJECTS = [
     media: { video: null, youtube: "WP7k9L4509w", poster: null, images: ["media/chess.jpg"] }
   },
 
-  /* ---------------------------------------------------------------- 6 --- */
+  /* ---------------------------------------------------------------- 7 --- */
   {
     id: "hotspot-founder",
     title: "Hotspot Founder",
@@ -1009,7 +1096,7 @@ const PROJECTS = [
     media: { video: null, youtube: null, poster: null, images: ["media/hotspot-founder.jpg"] }
   },
 
-  /* ---------------------------------------------------------------- 7 --- */
+  /* ---------------------------------------------------------------- 8 --- */
   {
     id: "vr-bowling",
     title: "VR Bowling",
@@ -1105,7 +1192,7 @@ const PROJECTS = [
     media: { video: null, youtube: null, poster: null, images: ["media/vr-bowling.jpg"] }
   },
 
-  /* ---------------------------------------------------------------- 8 --- */
+  /* ---------------------------------------------------------------- 9 --- */
   {
     id: "shooting-multiplayer",
     title: "Shooting Multiplayer",
@@ -1282,7 +1369,7 @@ const PROJECTS = [
     media: { video: null, youtube: null, poster: null, images: ["media/shooting-multiplayer.jpg"] }
   },
 
-  /* ---------------------------------------------------------------- 9 --- */
+  /* --------------------------------------------------------------- 10 --- */
   {
     id: "skyrunner-3d",
     title: "Sky Runner 3D",

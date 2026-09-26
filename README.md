@@ -3,7 +3,7 @@
 A static portfolio site. No build step, no npm, no framework, no dependencies.
 Open `index.html` in a browser and it works.
 
-Live content: **13 projects** (9 personal, 4 client), two colour themes, and a
+Live content: **14 projects** (10 personal, 4 client), two colour themes, and a
 detail modal for every project.
 
 ---
