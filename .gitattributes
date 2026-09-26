@@ -1,0 +1,5 @@
+# Windows batch files must keep CRLF line endings: cmd.exe can mis-handle
+# goto/labels in LF-only files. Pinned here so every checkout and every
+# GitHub ZIP download gets CRLF, whatever the local core.autocrlf is.
+*.cmd text eol=crlf
+*.bat text eol=crlf
