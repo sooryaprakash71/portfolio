@@ -188,7 +188,7 @@ const PROJECTS = [
       }
     ],
     detail: [
-      "Unlike the VR Training Simulation client work, this project is a " +
+      "This project is a " +
       "personal development project created to explore how real-world " +
       "industrial procedures can be converted into an interactive training " +
       "experience.",
@@ -1439,7 +1439,7 @@ const PROJECTS = [
     id: "vr-training-simulation",
     title: "VR Training Simulation",
     kind: "client",
-    type: "VR Training",
+    type: "VR Training Simulation",
     client: "Client work",
     blurb: "Step-by-step VR training on Meta Quest: grab and manipulate " +
            "objects, move by teleport or smooth locomotion, and work through " +
