@@ -1093,7 +1093,7 @@ const PROJECTS = [
       "interaction can turn arbitrary images into simple, interactive " +
       "educational experiences."
     ],
-    media: { video: null, youtube: null, poster: null, images: ["media/hotspot-founder.jpg"] }
+    media: { video: null, youtube: "1uWzUlZMfyc", poster: null, images: ["media/hotspot-founder.jpg"] }
   },
 
   /* ---------------------------------------------------------------- 8 --- */
@@ -1366,7 +1366,7 @@ const PROJECTS = [
       "systems such as economy, rounds, bombs, weapons, and AI operate " +
       "consistently inside that architecture."
     ],
-    media: { video: null, youtube: null, poster: null, images: ["media/shooting-multiplayer.jpg"] }
+    media: { video: null, youtube: "BS90JAag38w", poster: null, images: ["media/shooting-multiplayer.jpg"] }
   },
 
   /* --------------------------------------------------------------- 10 --- */
@@ -1431,7 +1431,7 @@ const PROJECTS = [
       "This project was built to explore that difference between a controller " +
       "that works and a controller that feels good."
     ],
-    media: { video: null, youtube: null, poster: null, images: ["media/skyrunner-3d.jpg"] }
+    media: { video: null, youtube: "o_ZK1qYZIVg", poster: null, images: ["media/skyrunner-3d.jpg"] }
   },
 
   /* ------------------------------------------------ client work ---------- */
