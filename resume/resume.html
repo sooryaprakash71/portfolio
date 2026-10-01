@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Soorya Prakash S Resume</title>
+<meta name="author" content="Soorya Prakash S">
+<!--
+  Source for Soorya-Prakash-S-Resume.pdf (the copy the website links to).
+  Kept deliberately plain for ATS parsing: one column, real text, standard
+  section headings, no tables, no icons, contact details in the body.
+  This public copy has no phone number. A copy with the phone number is
+  built into private/, which git ignores.
+-->
+<style>
+  @page { size: A4; margin: 9mm 13mm; }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: Calibri, Arial, Helvetica, sans-serif;
+    font-size: 9.8pt;
+    line-height: 1.24;
+    color: #111;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  header { text-align: center; margin-bottom: 5pt; }
+  h1 { font-size: 20pt; letter-spacing: .5pt; margin: 0; line-height: 1.1; }
+  .role { font-size: 11.5pt; margin: 2pt 0 3pt; }
+  .contact { font-size: 9.5pt; }
+
+  h2 {
+    font-size: 10.5pt;
+    letter-spacing: .8pt;
+    text-transform: uppercase;
+    margin: 6.5pt 0 2.5pt;
+    padding-bottom: 1.5pt;
+    border-bottom: .8pt solid #333;
+  }
+
+  p { margin: 0; }
+  ul { margin: 1.5pt 0 0; padding-left: 13pt; }
+  li { margin: 0 0 1pt; }
+
+  .row { display: flex; justify-content: space-between; gap: 10pt; }
+  .row .when { white-space: nowrap; }
+  .entry + .entry { margin-top: 4pt; }
+  .sub { font-style: italic; }
+
+  .project { margin-top: 2pt; }
+  .project p { margin-left: 13pt; }
+  .tech { font-style: italic; }
+
+  .skills p { margin: 0 0 1pt; }
+  .more { margin-top: 2.5pt; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>SOORYA PRAKASH S</h1>
+  <p class="role">Game &amp; XR Developer</p>
+  <p class="contact">
+    Trichy, Tamil Nadu, India<!--PHONE--> |
+    <a href="mailto:sooryaprakash71@gmail.com">sooryaprakash71@gmail.com</a>
+  </p>
+  <p class="contact">
+    <a href="https://www.linkedin.com/in/soorya-prakash-s-486733128/">linkedin.com/in/soorya-prakash-s-486733128</a> |
+    <a href="https://sooryaprakash71.github.io/portfolio/">sooryaprakash71.github.io/portfolio</a>
+  </p>
+</header>
+
+<h2>Summary</h2>
+<p>
+  Game and XR developer working in Unity and C#, building experiences across
+  2D, 3D, VR, AR and Apple Vision Pro. At Tata Consultancy Services since 2023,
+  building gameplay and interaction systems, UI flows and spatial experiences.
+  Outside work, builds games from the ground up, including custom physics, level
+  solvers and multiplayer networking without third-party libraries.
+</p>
+
+<h2>Experience</h2>
+<div class="entry">
+  <div class="row">
+    <p><b>Developer (XR &amp; Unity)</b>, Tata Consultancy Services (TCS), Chennai</p>
+    <p class="when">Jul 2023 - Present</p>
+  </div>
+  <ul>
+    <li>Develop Unity-based 2D, 3D and XR applications in C#, and handle debugging,
+        performance optimization and multi-platform builds for Android, Windows and
+        Apple Vision Pro.</li>
+    <li>Built a VR training simulation with physical grab and manipulate interactions,
+        teleport and smooth locomotion, step-by-step training tasks, and visual, audio
+        and haptic feedback (XR Interaction Toolkit, OpenXR, Oculus SDK, AutoHands).</li>
+    <li>Built an Apple Vision Pro prototype with Unity, PolySpatial and visionOS, using
+        gaze targeting and pinch selection for controller-free input and spatial UI.</li>
+    <li>Built an AR prototype with AR Foundation and ARCore covering surface detection,
+        object placement, and touch and gesture controls to move, rotate and scale objects.</li>
+    <li>Built a 3D interactive application with player movement, physics, camera
+        systems, UI and input handling.</li>
+  </ul>
+</div>
+
+<h2>Projects</h2>
+<div class="project">
+  <p style="margin-left:0"><b>Gin Distillation Training Simulation VR</b> | <span class="tech">Unity, C#, XR Interaction Toolkit, OpenXR</span></p>
+  <p>VR simulation of a 16-step gin distillation startup procedure: interactive valves,
+     pump control panel, still hatch and aromatics, with temperature, spirit level and
+     foam monitoring driven by procedural state logic.</p>
+</div>
+<div class="project">
+  <p style="margin-left:0"><b>Gravity Drift</b> | <span class="tech">Unity 6, C#, 2D Physics, Procedural Graphics, Runtime Audio</span></p>
+  <p>2D physics platformer with six levels and a tutorial. The player is a Rigidbody2D moved
+     by force and torque, with per-player gravity flip zones, wind, a HingeJoint2D pendulum,
+     and core visuals and several sound effects generated at runtime.</p>
+</div>
+<div class="project">
+  <p style="margin-left:0"><b>Glowworm</b> | <span class="tech">Unity 6, C#, Procedural Generation</span></p>
+  <p>Children's learning game where a worm eats the next item in a sequence, so one mechanic
+     covers counting, letters and spelling, with generated levels checked by a solver.</p>
+</div>
+<div class="project">
+  <p style="margin-left:0"><b>GridPush</b> | <span class="tech">Unity 6, C#</span></p>
+  <p>15-level Sokoban game with a Unity-independent rules engine and a breadth-first
+     search solver that verifies each level and orders levels by optimal solution length.</p>
+</div>
+<div class="project">
+  <p style="margin-left:0"><b>Chess</b> | <span class="tech">Unity, C#, TCP, UDP, WebSocket</span></p>
+  <p>One rules engine behind three modes: pass and play, LAN over TCP with UDP discovery,
+     and online through a custom WebSocket relay server, with no Photon, Mirror or
+     networking library. About 5,900 lines of C#, 81 automated tests, move generation
+     verified with perft.</p>
+</div>
+<div class="project">
+  <p style="margin-left:0"><b>Hotspot Founder</b> | <span class="tech">Unity 6, C#, uGUI</span></p>
+  <p>Image-based learning tool: load any image at runtime, place and label hotspots, then
+     explore them by hovering. Positions are stored relative to the image, so content works
+     at any size or aspect ratio.</p>
+</div>
+<div class="project">
+  <p style="margin-left:0"><b>VR Bowling</b> | <span class="tech">Unity, C#, XR Interaction Toolkit, OpenXR, Meta Quest</span></p>
+  <p>Physics-driven bowling for Meta Quest 2 and 3 with controller and hand-tracking
+     throws, pin physics and standard scoring.</p>
+</div>
+<p class="more">More projects and gameplay videos: sooryaprakash71.github.io/portfolio</p>
+
+<h2>Skills</h2>
+<div class="skills">
+  <p><b>Game Development:</b> Unity 2D &amp; 3D, Gameplay Programming, Game Architecture,
+     Physics, Animation, UI (uGUI), Game State Management, Procedural Generation, Editor Tooling</p>
+  <p><b>XR &amp; Spatial:</b> XR Interaction Toolkit, OpenXR, AR Foundation, ARCore, ARKit,
+     Meta Quest SDK, PolySpatial, visionOS, Hand Tracking, Gaze Tracking, Spatial UI</p>
+  <p><b>Programming:</b> C#, Object-Oriented Programming, SOLID Principles, Design Patterns,
+     Data Structures &amp; Algorithms, State Machines, Event-Driven Systems, Debugging,
+     Code Optimization</p>
+  <p><b>Networking:</b> Netcode for GameObjects, TCP, UDP, WebSocket, Client/Server
+     Architecture, Relay Systems, Lag Compensation</p>
+  <p><b>Tools:</b> Git, GitHub, Unity Profiler, Unity Package Manager, Addressables,
+     Assembly Definitions, ScriptableObjects</p>
+  <p><b>Platforms:</b> Windows, Android, iOS, WebGL, Meta Quest, Apple Vision Pro, macOS</p>
+</div>
+
+<h2>Education</h2>
+<div class="entry">
+  <div class="row">
+    <p><b>Master of Computer Applications (MCA)</b>, SASTRA Deemed University, CGPA 8.71</p>
+    <p class="when">2023 - 2025</p>
+  </div>
+</div>
+<div class="entry">
+  <div class="row">
+    <p><b>Bachelor of Science in Computer Science</b>, Bishop Heber College, CGPA 8.13</p>
+    <p class="when">2020 - 2023</p>
+  </div>
+</div>
+
+</body>
+</html>

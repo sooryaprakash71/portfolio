@@ -88,10 +88,13 @@
      honours the browser's own "ask where to save each file" setting.    */
 
   const resumeName = SITE.resume.split("/").pop();
+  /* the file name has spaces; encode it for use as a link, keep it plain as
+     the name the downloaded file is saved under */
+  const resumeUrl  = encodeURI(SITE.resume);
 
   const viewBtn = $("#heroResume");
   if (viewBtn) {
-    viewBtn.href = SITE.resume;
+    viewBtn.href = resumeUrl;
     viewBtn.removeAttribute("download");
     viewBtn.target = "_blank";
     viewBtn.rel = "noopener noreferrer";
@@ -99,7 +102,7 @@
 
   function plainDownload() {
     const a = document.createElement("a");
-    a.href = SITE.resume;
+    a.href = resumeUrl;
     a.download = resumeName;
     document.body.appendChild(a);
     a.click();
@@ -127,7 +130,7 @@
     }
 
     try {
-      const res = await fetch(SITE.resume);
+      const res = await fetch(resumeUrl);
       if (!res.ok) throw new Error("could not fetch the resume");
       const writable = await handle.createWritable();
       await writable.write(await res.blob());
@@ -139,7 +142,7 @@
 
   const dlBtn = $("#aboutResume");
   if (dlBtn) {
-    dlBtn.href = SITE.resume;
+    dlBtn.href = resumeUrl;
     dlBtn.setAttribute("download", resumeName);
     dlBtn.removeAttribute("target");
     dlBtn.addEventListener("click", saveResume);

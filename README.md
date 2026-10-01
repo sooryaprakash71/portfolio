@@ -17,7 +17,7 @@ detail modal for every project.
 | `style.css` | Both themes, layout, responsive rules, print styles. |
 | `app.js` | Behaviour — theme switching, filters, modal, custom cursor. Leave alone. |
 | `media/` | Screenshots and videos. One `.jpg` per project, plus `profile.jpg`. |
-| `Soorya-Prakash-S-Resume.pdf` | The résumé both résumé buttons point at. |
+| `Soorya Prakash S Resume.pdf` | The résumé both résumé buttons point at (set by `resume` in `data.js`). |
 | `preview.cmd` | **Double-click to preview the site locally** (see below). |
 | `serve.ps1` | The local web server `preview.cmd` starts. |
 | `netlify.toml` | Netlify publish directory + security headers. |
@@ -258,8 +258,6 @@ The contact card is **email, LinkedIn and city only**. The phone number was
 removed deliberately: a public, search-indexed page is scraped continuously, and
 recruiters use email and LinkedIn anyway.
 
-> ⚠️ **`Soorya-Prakash-S-Resume.pdf` still contains the phone number**, as a
-> visible line and as a `tel:` link, and both résumé buttons serve that file
-> publicly. Removing it from the site does not remove it from the PDF —
-> regenerate the PDF from its source document if you want the number off the
-> site entirely.
+The résumé the site links to (`Soorya Prakash S Resume.pdf`) has no phone
+number either. Before replacing it, check the new PDF doesn't add one back:
+anything in this folder that gets pushed is public.

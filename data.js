@@ -46,7 +46,7 @@ const SITE = {
   linkedin: "https://www.linkedin.com/in/soorya-prakash-s-486733128/",
   location: "Trichy, Tamil Nadu, India",
 
-  resume:   "Soorya-Prakash-S-Resume.pdf",
+  resume:   "Soorya Prakash S Resume.pdf",
 
   // Footer copyright year. Change this string to whatever you want shown.
   copyrightYear: "2023",
